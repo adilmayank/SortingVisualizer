@@ -1,40 +1,56 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import InsertionSort from '../Algorithms/InsertionSort'
+import MergeSortAlgorithm from '../Algorithms/MergeSort'
 
 const ControlCenter = ({
   array,
   setArray,
+  setLeftIndex,
+  setMidIndex,
+  setRightIndex,
   setInitialIndex,
   setFinalIndex,
+  setCompareIndex,
   handleRandomize,
   setArraySize,
   setIsSortingComplete,
+  setSelectedAlgorithm,
 }) => {
-  const initialSortingAlgorithms = [
-    { name: 'insertionSort', text: 'Insertion Sort', active: true },
-    { name: 'heapSort', text: 'Heap Sort', active: false },
-    { name: 'quickSort', text: 'Quick Sort', active: false },
-  ]
   const sortingSpeedOptions = [
+    { name: 'superfast', text: 'Super Fast' },
     { name: 'fast', text: 'Fast' },
     { name: 'slow', text: 'Slow' },
   ]
 
-  const [sortingAlgorithms, setSortingAlgorithms] = useState([
-    ...initialSortingAlgorithms,
+  const initialSortingAlgorithmOptions = [
+    { name: 'insertionSort', text: 'Insertion Sort', active: true },
+    { name: 'mergeSort', text: 'Merge Sort', active: false },
+    { name: 'quickSort', text: 'Quick Sort', active: false },
+  ]
+
+  const [sortingAlgorithmOptions, setSortingAlgorithmOptions] = useState([
+    ...initialSortingAlgorithmOptions,
   ])
-  const [sortingSpeed, setSortingSpeed] = useState(300)
+  const [sortingSpeed, setSortingSpeed] = useState(100)
 
   const handleChangeSpeed = (speed) => {
-    if (speed === 'fast') {
-      setSortingSpeed(400)
+    if (speed === 'superfast') {
+      setSortingSpeed(50)
+    } else if (speed === 'fast') {
+      setSortingSpeed(300)
     } else if (speed === 'slow') {
       setSortingSpeed(600)
     }
   }
 
   const handleClick = (algorithm) => {
-    const tempSortingAlgorithms = sortingAlgorithms.map((item) => {
+    setLeftIndex(false)
+    setMidIndex(false)
+    setRightIndex(false)
+    setInitialIndex(false)
+    setFinalIndex(false)
+    setCompareIndex(false)
+    const tempSortingAlgorithms = sortingAlgorithmOptions.map((item) => {
       if (item.name === algorithm) {
         item.active = true
       } else {
@@ -42,7 +58,8 @@ const ControlCenter = ({
       }
       return item
     })
-    setSortingAlgorithms([...tempSortingAlgorithms])
+    setSelectedAlgorithm(algorithm)
+    setSortingAlgorithmOptions([...tempSortingAlgorithms])
   }
 
   const handleSort = () => {
@@ -50,7 +67,7 @@ const ControlCenter = ({
     let result
 
     setIsSortingComplete(false)
-    sortingAlgorithms.map((item) => {
+    sortingAlgorithmOptions.map((item) => {
       if (item.active) {
         algorithm = item.name
       }
@@ -58,8 +75,10 @@ const ControlCenter = ({
 
     if (algorithm === 'insertionSort') {
       result = InsertionSort(array)
-      animateSort(result, 0)
+    } else if (algorithm === 'mergeSort') {
+      result = MergeSortAlgorithm(array)
     }
+    animateSort(result, 0)
   }
 
   const animateSort = (result, index) => {
@@ -67,10 +86,18 @@ const ControlCenter = ({
       setTimeout(() => {
         const initial = result[index].initial
         const final = result[index].final
-        const snapshotArray = result[index].tempArray
+        const compareIndex = result[index].compareIndex
+        const interimArray = result[index].interimArray
+        const leftIndex = result[index].leftIndex
+        const midIndex = result[index].midIndex
+        const rightIndex = result[index].rightIndex
         setInitialIndex(initial)
         setFinalIndex(final)
-        setArray(snapshotArray)
+        setCompareIndex(compareIndex)
+        setLeftIndex(leftIndex)
+        setMidIndex(midIndex)
+        setRightIndex(rightIndex)
+        setArray(interimArray)
         animateSort(result, index + 1)
       }, sortingSpeed)
     }
@@ -82,7 +109,7 @@ const ControlCenter = ({
   return (
     <div className="control-center">
       <div className="algorithms">
-        {sortingAlgorithms.map((item, index) => {
+        {sortingAlgorithmOptions.map((item, index) => {
           return (
             <div
               className={`algorithm-button button ${item.active && 'active'}`}
@@ -100,7 +127,7 @@ const ControlCenter = ({
         <input
           type="number"
           id="array-size"
-          defaultValue={30}
+          defaultValue={array.length}
           max={200}
           min={20}
           onChange={(e) => setArraySize(e.target.value)}

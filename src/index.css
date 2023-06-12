@@ -132,7 +132,19 @@ label {
   background-color: rgb(30, 215, 27);
 }
 
+.comparing {
+  background-color: rgb(247, 250, 59);
+}
+
 .sorted {
   background-color: rgb(111, 243, 102);
   box-shadow: rgb(21,179,10) 0 0 0.1rem 0.1rem inset;
+}
+
+.in-merge-range {
+  background-color: #e0e0e071;
+}
+
+.left-index-merge, .right-index-merge{
+  background-color: rgb(71, 46, 255);
 }
