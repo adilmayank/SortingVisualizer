@@ -31,15 +31,15 @@ const ControlCenter = ({
   const [sortingAlgorithmOptions, setSortingAlgorithmOptions] = useState([
     ...initialSortingAlgorithmOptions,
   ])
-  const [sortingSpeed, setSortingSpeed] = useState(100)
+  const [sortingSpeed, setSortingSpeed] = useState(20)
 
   const handleChangeSpeed = (speed) => {
     if (speed === 'superfast') {
-      setSortingSpeed(50)
+      setSortingSpeed(10)
     } else if (speed === 'fast') {
-      setSortingSpeed(300)
+      setSortingSpeed(200)
     } else if (speed === 'slow') {
-      setSortingSpeed(600)
+      setSortingSpeed(300)
     }
   }
 
@@ -98,6 +98,7 @@ const ControlCenter = ({
         setMidIndex(midIndex)
         setRightIndex(rightIndex)
         setArray(interimArray)
+        console.log("recusrsively calling animate sort")
         animateSort(result, index + 1)
       }, sortingSpeed)
     }
