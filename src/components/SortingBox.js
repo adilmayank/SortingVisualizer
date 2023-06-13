@@ -3,7 +3,7 @@ import ControlCenter from './ControlCenter'
 import Bar from './Bars'
 
 const SortingBox = () => {
-  const [arraySize, setArraySize] = useState(8)
+  const [arraySize, setArraySize] = useState(50)
   const [array, setArray] = useState(getRandomArray())
 
   // Bar dimension states
@@ -13,11 +13,13 @@ const SortingBox = () => {
   const [selectedAlgorithm, setSelectedAlgorithm] = useState('insertionSort')
 
   //insertion sort metadata
+  // can we combine these three states into one?
   const [initialIndex, setInitialIndex] = useState(false)
   const [finalIndex, setFinalIndex] = useState(false)
   const [compareIndex, setCompareIndex] = useState(false)
 
   //merge sort metadata
+    // can we combine these three states into one?
   const [leftIndex, setLeftIndex] = useState(false)
   const [midIndex, setMidIndex] = useState(false)
   const [rightIndex, setRightIndex] = useState(false)
