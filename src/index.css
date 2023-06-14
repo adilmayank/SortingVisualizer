@@ -141,7 +141,7 @@ label {
   box-shadow: rgb(21,179,10) 0 0 0.1rem 0.1rem inset;
 }
 
-.in-merge-range {
+.not-in-merge-range {
   background-color: #e0e0e071;
 }
 

@@ -1,82 +1,48 @@
-import { useState } from 'react'
+import { useContext, useEffect } from 'react'
 import InsertionSort from '../Algorithms/InsertionSort'
 import MergeSortAlgorithm from '../Algorithms/MergeSort'
+import { Context } from '../Context/AppContext'
+import { AlgorithmOptions } from '../StaticLists/AlgorithmOptionsArray'
+import { SortingSpeedOptions } from '../StaticLists/SortingSpeedOptionsArray'
+import { Factory } from '../Factories/Factory'
 
-const ControlCenter = ({
-  array,
-  setArray,
-  setLeftIndex,
-  setMidIndex,
-  setRightIndex,
-  setInitialIndex,
-  setFinalIndex,
-  setCompareIndex,
-  handleRandomize,
-  setArraySize,
-  setIsSortingComplete,
-  setSelectedAlgorithm,
-}) => {
-  const sortingSpeedOptions = [
-    { name: 'superfast', text: 'Super Fast' },
-    { name: 'fast', text: 'Fast' },
-    { name: 'slow', text: 'Slow' },
-  ]
+const ControlCenter = ({ handleRandomize }) => {
+  const {
+    inputArray,
+    setInputArray,
+    arraySize,
+    setArraySize,
+    setIsSortingComplete,
+    selectedAlgorithm,
+    setSelectedAlgorithm,
+    sortingSpeed,
+    setSortingSpeed,
+    setSortingProps,
+    resetBarStyles,
+  } = useContext(Context)
 
-  const initialSortingAlgorithmOptions = [
-    { name: 'insertionSort', text: 'Insertion Sort', active: true },
-    { name: 'mergeSort', text: 'Merge Sort', active: false },
-    { name: 'quickSort', text: 'Quick Sort', active: false },
-  ]
-
-  const [sortingAlgorithmOptions, setSortingAlgorithmOptions] = useState([
-    ...initialSortingAlgorithmOptions,
-  ])
-  const [sortingSpeed, setSortingSpeed] = useState(20)
+  useEffect(() => {
+    setSelectedAlgorithm(Object.keys(AlgorithmOptions)[0])
+  }, [])
 
   const handleChangeSpeed = (speed) => {
-    if (speed === 'superfast') {
-      setSortingSpeed(10)
-    } else if (speed === 'fast') {
-      setSortingSpeed(200)
-    } else if (speed === 'slow') {
-      setSortingSpeed(300)
-    }
+    setSortingSpeed(SortingSpeedOptions[speed].value)
   }
 
   const handleClick = (algorithm) => {
-    setLeftIndex(false)
-    setMidIndex(false)
-    setRightIndex(false)
-    setInitialIndex(false)
-    setFinalIndex(false)
-    setCompareIndex(false)
-    const tempSortingAlgorithms = sortingAlgorithmOptions.map((item) => {
-      if (item.name === algorithm) {
-        item.active = true
-      } else {
-        item.active = false
-      }
-      return item
-    })
+    resetBarStyles()
     setSelectedAlgorithm(algorithm)
-    setSortingAlgorithmOptions([...tempSortingAlgorithms])
   }
 
   const handleSort = () => {
-    let algorithm
     let result
 
     setIsSortingComplete(false)
-    sortingAlgorithmOptions.map((item) => {
-      if (item.active) {
-        algorithm = item.name
-      }
-    })
-
-    if (algorithm === 'insertionSort') {
-      result = InsertionSort(array)
-    } else if (algorithm === 'mergeSort') {
-      result = MergeSortAlgorithm(array)
+    
+    if (selectedAlgorithm === 'insertionSort') {
+      result = InsertionSort(inputArray)
+    } else if (selectedAlgorithm === 'mergeSort') {
+      result = MergeSortAlgorithm(inputArray)
     }
     animateSort(result, 0)
   }
@@ -84,21 +50,33 @@ const ControlCenter = ({
   const animateSort = (result, index) => {
     if (index < result.length) {
       setTimeout(() => {
-        const initial = result[index].initial
-        const final = result[index].final
-        const compareIndex = result[index].compareIndex
+        let renderProps
+
         const interimArray = result[index].interimArray
-        const leftIndex = result[index].leftIndex
-        const midIndex = result[index].midIndex
-        const rightIndex = result[index].rightIndex
-        setInitialIndex(initial)
-        setFinalIndex(final)
-        setCompareIndex(compareIndex)
-        setLeftIndex(leftIndex)
-        setMidIndex(midIndex)
-        setRightIndex(rightIndex)
-        setArray(interimArray)
-        console.log("recusrsively calling animate sort")
+
+        if (selectedAlgorithm === 'insertionSort') {
+          const initial = result[index].initial
+          const final = result[index].final
+          const compareIndex = result[index].compareIndex
+          renderProps = Factory.createInsertionSortProps(
+            initial,
+            final,
+            compareIndex
+          )
+        } else if (selectedAlgorithm === 'mergeSort') {
+          const leftIndex = result[index].leftIndex
+          const midIndex = result[index].midIndex
+          const rightIndex = result[index].rightIndex
+          const compareIndex = result[index].compareIndex
+          renderProps = Factory.createMergeSortProps(
+            leftIndex,
+            midIndex,
+            rightIndex,
+            compareIndex
+          )
+        }
+        setSortingProps(renderProps)
+        setInputArray([...interimArray])
         animateSort(result, index + 1)
       }, sortingSpeed)
     }
@@ -110,15 +88,17 @@ const ControlCenter = ({
   return (
     <div className="control-center">
       <div className="algorithms">
-        {sortingAlgorithmOptions.map((item, index) => {
+        {Object.keys(AlgorithmOptions).map((item, index) => {
           return (
             <div
-              className={`algorithm-button button ${item.active && 'active'}`}
+              className={`algorithm-button button ${
+                item === selectedAlgorithm && 'active'
+              }`}
               key={index}
-              id={item.name}
-              onClick={() => handleClick(item.name)}
+              id={AlgorithmOptions[item].name}
+              onClick={() => handleClick(item)}
             >
-              {item.text}
+              {AlgorithmOptions[item].text}
             </div>
           )
         })}
@@ -128,7 +108,7 @@ const ControlCenter = ({
         <input
           type="number"
           id="array-size"
-          defaultValue={array.length}
+          defaultValue={arraySize}
           max={200}
           min={20}
           onChange={(e) => setArraySize(e.target.value)}
@@ -141,10 +121,10 @@ const ControlCenter = ({
           id="sorting-speed"
           onChange={(e) => handleChangeSpeed(e.target.value)}
         >
-          {sortingSpeedOptions.map((item, index) => {
+          {Object.keys(SortingSpeedOptions).map((item, index) => {
             return (
-              <option value={item.name} key={index}>
-                {item.text}
+              <option value={SortingSpeedOptions[item].name} key={index}>
+                {SortingSpeedOptions[item].text}
               </option>
             )
           })}

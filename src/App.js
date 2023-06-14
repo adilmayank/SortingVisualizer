@@ -1,11 +1,12 @@
-import SortingBox from './components/SortingBox';
+import SortingBox from './components/SortingBox'
+import { ContextProvider } from './Context/AppContext'
 
 function App() {
   return (
-    <div>
+    <ContextProvider>
       <SortingBox />
-    </div>
-  );
+    </ContextProvider>
+  )
 }
 
-export default App;
+export default App

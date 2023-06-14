@@ -56,7 +56,6 @@ const MergeSortAlgorithm = (array) => {
       k++
     }
   }
-  console.log(result)
   return result
 }
 
