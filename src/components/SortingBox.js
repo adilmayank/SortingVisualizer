@@ -10,29 +10,18 @@ const SortingBox = () => {
     barWidth,
     setBarWidth,
     isSortingComplete,
-    setIsSortingComplete,
     inputArray,
     setInputArray,
     arraySize,
-    resetBarStyles,
+    getRandomArray,
+    handleRandomize,
   } = useContext(Context)
 
-  const handleRandomize = () => {
-    const tempArray = getRandomArray()
-    resetBarStyles()
-    setInputArray(tempArray)
-    setIsSortingComplete(false)
-  }
-
-  function getRandomArray() {
-    const randomArray = Array.from(
-      { length: arraySize },
-      () => Math.floor(Math.random() * 100) + 1
-    )
-    return randomArray
-  }
+  const [initialBarAreaWidth, setInitialBarAreaWidth] = useState(0)
 
   useEffect(() => {
+    const barAreaContainer = document.querySelector('.bar-area')
+    setInitialBarAreaWidth(barAreaContainer.clientWidth)
     setInputArray(getRandomArray())
   }, [])
 
@@ -45,7 +34,6 @@ const SortingBox = () => {
   useEffect(() => {
     const barAreaContainer = document.querySelector('.bar-area')
     const barAreaHeight = barAreaContainer.clientHeight
-    const barAreaWidth = barAreaContainer.clientWidth
 
     const max = Math.max(...inputArray)
 
@@ -53,7 +41,7 @@ const SortingBox = () => {
       return (num / max) * barAreaHeight * 0.9
     })
 
-    const calculatedBarWidth = (barAreaWidth / arraySize) * 0.8
+    const calculatedBarWidth = (initialBarAreaWidth / arraySize) * 0.8
     setBarHeights(calculatedBarHeights)
     setBarWidth(calculatedBarWidth)
   }, [inputArray])
@@ -85,22 +73,23 @@ const SortingBox = () => {
       barsArray[index].classList.add('sorted')
       setTimeout(() => {
         animateBars(barsArray, index + 1)
-      }, 20)
+        console.log(((barsArray.length - (index + 1))*20 / (barsArray.length))*1.5)
+      }, ((barsArray.length - (index + 1))*20 / (barsArray.length))*1.5)
     }
   }
 
   return (
     <div className="sorting-box-container">
       <ControlCenter handleRandomize={handleRandomize} />
-      <div className="sorting-box">
-        <div className="bar-area">
+      <div className="sorting-box frosted">
+        <div className="bar-area controlled-width">
           {barHeights.map((item, index) => {
             return (
               <Bar height={item} width={barWidth} key={index} index={index} />
             )
           })}
         </div>
-        <div className="base"></div>
+        <div className="base controlled-width"></div>
       </div>
     </div>
   )

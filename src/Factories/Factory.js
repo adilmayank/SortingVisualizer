@@ -17,7 +17,6 @@ export class Factory {
     rightIndex = null,
     compareIndex = null
   ) {
-    console.log(leftIndex, rightIndex)
     return {
       leftIndex: leftIndex,
       midIndex: midIndex,
