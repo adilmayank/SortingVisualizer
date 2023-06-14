@@ -1,10 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+html {
+  /* overflow: auto; */
+}
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  height: 100vh;
+  min-height: 800px;
+  width: 100vw;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: 'Roboto', sans-serif !important;
 }
 
 code {
@@ -12,53 +17,93 @@ code {
     monospace;
 }
 
-.sorting-box-container {
-  margin: 1rem;
-  padding: 1rem;
-  border: 2px solid black;
+#root {
+  height: 100%;
+  background-image: linear-gradient(
+    to right bottom,
+    #935cff,
+    #8b61ff,
+    #8265ff,
+    #7969ff,
+    #716dff,
+    #4884ff,
+    #1996ff,
+    #00a5ff,
+    #00c1ff,
+    #00d9f6,
+    #00ecd5,
+    #5ffbac
+  );
+  display: grid;
+  grid-template-rows: 10% 90%;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-title {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  row-gap: 0.5rem;
 }
 
-.controls {
-  height: 100%;
-  width: 85%;
-  display: flex;
-  flex-direction: row;
-  margin: 0.5rem 1rem;
+.app-title > p {
+  font-weight: 700;
+  font-size: 2.2rem;
+  letter-spacing: 0.15rem;
+  text-transform: uppercase;
+}
+
+.sorting-box-container {
+  height: 90%;
+  padding-inline: 1rem;
+  display: grid;
+  grid-template-rows: 1fr 9fr;
+  justify-content: center;
+  align-items: center;
+}
+
+.frosted {
+  background: #ffffff4c;
+  backdrop-filter: saturate(120%) blur(10px) blur(15px);
+  background-blend-mode: overlay;
+  box-shadow: 0 0 0.5rem 0.5rem rgba(43, 46, 46, 0.092);
 }
 
 .control-center {
-  height: 100%;
-  width: 85%;
+  height: 60px;
+  padding-inline: 1rem;
   font-size: 0.85rem;
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 0.5fr;
+  grid-template-columns: 1.5fr 1fr 1fr 0.5fr 0.5fr;
   column-gap: 0.25rem;
   align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
 }
 
 .algorithms,
 .array-controls,
 .sorting-speed,
-.randomize {
+.randomize,
+.sort-button {
   display: flex;
-  height: 100%;
   justify-content: center;
 }
 
+.algorithms .algorithm-button {
+  flex: 1;
+  width: 80%;
+}
+
 .button {
-  margin: 0.25rem;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0.25rem;
-  border-radius: 0.25rem;
-  border: 1px solid black;
   cursor: pointer;
+  width: 100%;
+  height: 100%;
   transition: 0.15s ease-in-out all;
 }
 
@@ -66,23 +111,19 @@ code {
   background-color: rgb(84, 231, 77);
 }
 
-.algorithm-button:hover {
-  border: 1px solid rgb(84, 231, 77);
-  box-shadow: rgb(84, 231, 77) 0 0 0.25rem 0.1rem;
-}
-
 .array-controls,
 .sorting-speed {
+  padding-inline: 3rem;
   display: grid;
-  grid-template-columns: 35% 50%;
   align-items: center;
+  grid-template-columns: 2fr 1fr;
 }
 
-.array-controls > input,
-label {
-  height: 80%;
-  display: flex;
-  align-items: center;
+.randomize-button {
+  background-color: #716dff;
+  color: #fff;
+  font-weight: 700;
+  border: 2px #fff solid;
 }
 
 .sort-button {
@@ -93,20 +134,17 @@ label {
 }
 
 .sorting-box {
-  padding: 0.5rem;
-  width: 85%;
+  padding: 1rem 3rem;
   height: 500px;
-  border: 2px solid #000;
-  background-image: linear-gradient(to top, #2f1ed3, #6d37dc, #9651e5, #b86dee, #d68af9);
+  border-radius: 0.25rem;
   display: grid;
   grid-template-rows: 95% 5%;
 }
 
 .bar-area {
   height: 100%;
-  background: #ffffff72;
-  backdrop-filter: blur(10px);
-  background-blend-mode: exclusion;
+  max-width: 90vw;
+  min-width: 90vw;
   display: flex;
   align-items: end;
   justify-content: center;
@@ -114,37 +152,46 @@ label {
 }
 
 .base {
-  height: 50%;
-  background-color: #ffffff72;
+  height: 30%;
+  border-radius: 0.15rem;
+  background: #fff;
+  box-shadow: 0 0.1rem 0.1rem 0.1rem #0001;
 }
 
 .bar {
-  margin-inline: 2px;
-  background-color: #fff;
+  margin-inline: 1px;
+  background-color: #000000bd;
+  backdrop-filter: blur(10);
   transition: 0.2s all ease-in-out;
 }
 
 .initial {
-  background-color: rgb(71, 46, 255);
+  background-color: rgb(73, 82, 255);
+  backdrop-filter: blur(10);
 }
 
 .final {
-  background-color: rgb(30, 215, 27);
+  background-color: rgba(30, 215, 27, 0.796);
+  backdrop-filter: blur(10);
 }
 
 .comparing {
-  background-color: rgb(247, 250, 59);
+  background-color: rgba(222, 255, 102, 0.843);
+  backdrop-filter: blur(10);
 }
 
 .sorted {
-  background-color: rgb(111, 243, 102);
-  box-shadow: rgb(21,179,10) 0 0 0.1rem 0.1rem inset;
+  background: rgba(4, 207, 14, 0.591);
+  backdrop-filter: blur(10);
 }
 
 .not-in-merge-range {
-  background-color: #e0e0e071;
+  background-color: #00000037;
+  backdrop-filter: blur(10);
 }
 
-.left-index-merge, .right-index-merge{
-  background-color: rgb(71, 46, 255);
+.left-index-merge,
+.right-index-merge {
+  backdrop-filter: blur(10);
+  background-color: rgba(73, 82, 255, 0.764);
 }
