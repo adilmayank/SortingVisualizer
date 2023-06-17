@@ -1,12 +1,14 @@
 import { createContext, useState } from 'react'
 import { Factory } from '../Factories/Factory'
 import { SortingSpeedOptions } from '../StaticLists/SortingSpeedOptionsArray'
+import { AlgorithmOptions } from '../StaticLists/AlgorithmOptionsArray'
 
 export const Context = createContext(null)
 
 export const ContextProvider = ({ children }) => {
   let initialSortingSpeedValue
   let initialSortingSpeed
+  let intialAlgorithm
   Object.keys(SortingSpeedOptions).map((item) => {
     if (SortingSpeedOptions[item].active) {
       initialSortingSpeedValue = SortingSpeedOptions[item].value
@@ -14,6 +16,11 @@ export const ContextProvider = ({ children }) => {
     }
   })
 
+  Object.keys(AlgorithmOptions).map((item) => {
+    if (AlgorithmOptions[item].active) {
+      intialAlgorithm = item
+    }
+  })
 
   const [barHeights, setBarHeights] = useState([])
   const [barWidth, setBarWidth] = useState(0)
@@ -68,6 +75,7 @@ export const ContextProvider = ({ children }) => {
     getRandomArray,
     handleRandomize,
     initialSortingSpeed,
+    intialAlgorithm,
   }
   return <Context.Provider value={contextValues}>{children}</Context.Provider>
 }
