@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState, useContext, memo } from 'react'
 import { Context } from '../Context/AppContext'
 import ControlCenter from './ControlCenter'
 import Bar from './Bars'
@@ -73,15 +73,14 @@ const SortingBox = () => {
       barsArray[index].classList.add('sorted')
       setTimeout(() => {
         animateBars(barsArray, index + 1)
-        console.log(((barsArray.length - (index + 1))*20 / (barsArray.length))*1.5)
-      }, ((barsArray.length - (index + 1))*20 / (barsArray.length))*1.5)
+      }, (((barsArray.length - (index + 1)) * 20) / barsArray.length) * 1.5)
     }
   }
 
   return (
-    <div className="sorting-box-container">
+    <div className="sorting-box-container grid">
       <ControlCenter handleRandomize={handleRandomize} />
-      <div className="sorting-box frosted">
+      <div className="sorting-box frosted-texture">
         <div className="bar-area controlled-width">
           {barHeights.map((item, index) => {
             return (
@@ -95,4 +94,4 @@ const SortingBox = () => {
   )
 }
 
-export default SortingBox
+export default memo(SortingBox)
