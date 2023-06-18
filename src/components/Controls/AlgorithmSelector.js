@@ -1,21 +1,16 @@
-import { useContext, useEffect } from 'react'
+import { memo, useContext, useEffect } from 'react'
 import { AlgorithmOptions } from '../../StaticLists/AlgorithmOptionsArray'
 import { Context } from '../../Context/AppContext'
 
-const AlgorithmSelector = ({ classes }) => {
+const AlgorithmSelector = () => {
   const {
-    intialAlgorithm,
+    initialAlgorithm,
     resetBarStyles,
     selectedAlgorithm,
     setSelectedAlgorithm,
   } = useContext(Context)
 
-  useEffect(() => {
-    setSelectedAlgorithm(Object.keys(AlgorithmOptions)[0])
-  }, [])
-
   const handleChange = (algorithm) => {
-    console.log(algorithm)
     resetBarStyles()
     setSelectedAlgorithm(algorithm)
   }
@@ -32,7 +27,7 @@ const AlgorithmSelector = ({ classes }) => {
           name="algorithm"
           id="algorithm"
           onChange={(e) => handleChange(e.currentTarget.value)}
-          defaultValue={intialAlgorithm}
+          defaultValue={initialAlgorithm}
         >
           {Object.keys(AlgorithmOptions).map((item, index) => {
             return (
@@ -53,4 +48,4 @@ const AlgorithmSelector = ({ classes }) => {
     </div>
   )
 }
-export default AlgorithmSelector
+export default memo(AlgorithmSelector)
