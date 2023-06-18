@@ -4,7 +4,6 @@ import ControlCenter from './ControlCenter'
 import Bar from './Bars'
 import Legends from './Legends'
 
-
 const SortingBox = () => {
   const {
     barHeights,
@@ -75,7 +74,7 @@ const SortingBox = () => {
       barsArray[index].classList.add('sorted')
       setTimeout(() => {
         animateBars(barsArray, index + 1)
-      }, (((barsArray.length - (index + 1)) * 20) / barsArray.length) * 1.5)
+      }, Math.pow((barsArray.length - (index + 1)) / barsArray.length, 3))
     }
   }
 
@@ -84,7 +83,7 @@ const SortingBox = () => {
       <ControlCenter handleRandomize={handleRandomize} />
       <div className="visuzalization-container grid grid-cols-12 my-14 w-5/6 h-full">
         <div className="sorting-box-container col-span-8 flex flex-col frosted mr-3 h-full rounded-lg">
-        <Legends  />
+          <Legends />
           <div className="bar-area-container overflow-auto h-5/6 w-full flex flex-col p-3">
             <div className="bar-area">
               {barHeights.map((item, index) => {
@@ -103,8 +102,10 @@ const SortingBox = () => {
         </div>
         <div className="additional-visualization-container col-span-4 ml-3 frosted h-full rounded-lg">
           <div className="additional-visualization flex flex-col justify-center items-center h-full w-full">
-            <p className='text-2xl font-bold uppercase my-1'>Additional Visualizations</p>
-            <p className='text-2xl uppercase my-1'>👀 Coming Soon 👀</p>
+            <p className="text-2xl font-bold uppercase my-1">
+              Additional Visualizations
+            </p>
+            <p className="text-2xl uppercase my-1">👀 Coming Soon 👀</p>
           </div>
         </div>
       </div>
