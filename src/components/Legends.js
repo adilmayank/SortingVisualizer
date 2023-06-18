@@ -26,16 +26,16 @@ const Legends = () => {
     ]
   }
   return (
-    <div className="legends-area-container h-1/6 w-full  p-3 flex flex-col">
-      <div className="legends-area grid grid-flow-col w-full h-full bg-slate-600/50 rounded-lg text-white font-semibold text-xs">
+    <div className="legends-area-container h-1/6 w-full p-3 flex flex-col">
+      <div className="legends-area grid items-center grid-flow-col w-full h-full bg-slate-600/50 rounded-lg text-white font-semibold text-xs">
         {legendNames.map((item, index) => {
           return (
-            <div className="legend-item flex justify-start items-center rounded-md bg-slate-800/80 m-1 p-3" key={index}>
+            <div className="legend-item flex justify-start items-center rounded-md bg-slate-800/80 h-5/6 m-1 px-3" key={index}>
               <div className="px-1 flex-1">
                 <span>{item.name}</span>
               </div>
-              <div className={`flex-1 flex`}>
-                <div className={`p-2 w-5/6 rounded-md ${item.className}`}></div>
+              <div className={`flex-1 flex justify-center`}>
+                <div className={`p-2 w-4/6 rounded-md ${item.className}`}></div>
               </div>
             </div>
           )
