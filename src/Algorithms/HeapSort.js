@@ -37,13 +37,9 @@ function HeapSort(array) {
     // then set largest index to be equal to L
     if (L <= A.heapSize - 1 && A.array[L] > A.array[i]) {
       largest = L
-      interimResult = getInterimResult(A, i, L, R)
-      interimResultArray.push(interimResult)
     } else {
       // other wise largest index is i
       largest = i
-      interimResult = getInterimResult(A, i, L, R)
-      interimResultArray.push(interimResult)
     }
 
     // we now know which element out of ith or Lth position is the largest
@@ -51,9 +47,9 @@ function HeapSort(array) {
     // then set largest = R
     if (R <= A.heapSize - 1 && A.array[R] > A.array[largest]) {
       largest = R
-      interimResult = getInterimResult(A, i, L, R)
-      interimResultArray.push(interimResult)
     }
+    interimResult = getInterimResult(A, i, L, R)
+    interimResultArray.push(interimResult)
 
     // if largest is not equal to the ith element, i.e. if the largest element is not equal to the parent element
     // then exchange the elements at parent(ith) and largest position
