@@ -25,7 +25,7 @@ export const ContextProvider = ({ children }) => {
   const [barHeights, setBarHeights] = useState([])
   const [barWidth, setBarWidth] = useState(0)
   const [inputArray, setInputArray] = useState([])
-  const [arraySize, setArraySize] = useState(10)
+  const [arraySize, setArraySize] = useState(25)
   const [selectedAlgorithm, setSelectedAlgorithm] = useState(initialAlgorithm)
   const [sortingSpeed, setSortingSpeed] = useState(initialSortingSpeedValue)
   const [isSortingComplete, setIsSortingComplete] = useState(false)
