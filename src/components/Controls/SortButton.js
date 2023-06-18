@@ -1,8 +1,9 @@
-import { useContext } from 'react'
+import { useContext, memo } from 'react'
 import { Context } from '../../Context/AppContext'
 import InsertionSort from '../../Algorithms/InsertionSort'
 import MergeSortAlgorithm from '../../Algorithms/MergeSort'
 import { Factory } from '../../Factories/Factory'
+import HeapSort from '../../Algorithms/HeapSort'
 
 const SortButton = () => {
   const {
@@ -21,10 +22,15 @@ const SortButton = () => {
 
     if (selectedAlgorithm === 'insertionSort') {
       result = InsertionSort(inputArray)
+      animateSort(result, 0)
     } else if (selectedAlgorithm === 'mergeSort') {
       result = MergeSortAlgorithm(inputArray)
+      animateSort(result, 0)
+    } else if(selectedAlgorithm === "heapSort") {
+      result = HeapSort(inputArray)
+      animateSort(result, 0)
     }
-    animateSort(result, 0)
+    console.log(result.length)
   }
 
   const animateSort = (result, index) => {
@@ -54,6 +60,9 @@ const SortButton = () => {
             rightIndex,
             compareIndex
           )
+        } else if(selectedAlgorithm === "heapSort") {
+          const {heapSize, parentIndex, childIndex1, childIndex2, largest, finalIndex1, finalIndex2, isSortingComplete} = result[index]
+          renderProps = Factory.createHeapSortProps(heapSize, parentIndex, childIndex1, childIndex2, largest, finalIndex1, finalIndex2, isSortingComplete)
         }
         setSortingProps(renderProps)
         setInputArray([...interimArray])
@@ -73,4 +82,4 @@ const SortButton = () => {
     </div>
   )
 }
-export default SortButton
+export default memo(SortButton)
