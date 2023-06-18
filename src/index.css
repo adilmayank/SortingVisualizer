@@ -162,7 +162,7 @@ code {
   margin-inline: 1px;
   background-color: #000000bd;
   backdrop-filter: blur(10);
-  transition: 0.2s all ease-in-out;
+  /* transition: 0.2s all ease-in-out; */
 }
 
 .initial {
@@ -194,4 +194,22 @@ code {
 .right-index-merge {
   backdrop-filter: blur(10);
   background-color: rgba(73, 82, 255, 0.764);
+}
+
+.heap-sort-parent {
+  backdrop-filter: blur(10);
+  background-color: rgba(34, 45, 249, 0.764);
+}
+
+.heap-sort-left {
+  backdrop-filter: blur(10);
+  background-color: rgba(233, 107, 45, 0.764);
+}
+.heap-sort-right {
+  backdrop-filter: blur(10);
+  background-color: rgba(233, 45, 45, 0.764);
+}
+.heap-sort-largest {
+  backdrop-filter: blur(10);
+  background-color: rgba(233, 45, 45, 0.764);
 }
