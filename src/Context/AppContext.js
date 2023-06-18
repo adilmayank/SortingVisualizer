@@ -8,7 +8,7 @@ export const Context = createContext(null)
 export const ContextProvider = ({ children }) => {
   let initialSortingSpeedValue
   let initialSortingSpeed
-  let intialAlgorithm
+  let initialAlgorithm
   Object.keys(SortingSpeedOptions).map((item) => {
     if (SortingSpeedOptions[item].active) {
       initialSortingSpeedValue = SortingSpeedOptions[item].value
@@ -18,15 +18,15 @@ export const ContextProvider = ({ children }) => {
 
   Object.keys(AlgorithmOptions).map((item) => {
     if (AlgorithmOptions[item].active) {
-      intialAlgorithm = item
+      initialAlgorithm = item
     }
   })
 
   const [barHeights, setBarHeights] = useState([])
   const [barWidth, setBarWidth] = useState(0)
   const [inputArray, setInputArray] = useState([])
-  const [arraySize, setArraySize] = useState(50)
-  const [selectedAlgorithm, setSelectedAlgorithm] = useState(null)
+  const [arraySize, setArraySize] = useState(10)
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState(initialAlgorithm)
   const [sortingSpeed, setSortingSpeed] = useState(initialSortingSpeedValue)
   const [isSortingComplete, setIsSortingComplete] = useState(false)
   const [sortingProps, setSortingProps] = useState({})
@@ -36,6 +36,8 @@ export const ContextProvider = ({ children }) => {
       setSortingProps(Factory.createInsertionSortProps())
     } else if (selectedAlgorithm === 'mergeSort') {
       setSortingProps(Factory.createMergeSortProps())
+    } else if (selectedAlgorithm === "heapSort") {
+      setSortingProps(Factory.createHeapSortProps())
     }
   }
 
@@ -75,7 +77,7 @@ export const ContextProvider = ({ children }) => {
     getRandomArray,
     handleRandomize,
     initialSortingSpeed,
-    intialAlgorithm,
+    initialAlgorithm,
   }
   return <Context.Provider value={contextValues}>{children}</Context.Provider>
 }
