@@ -21,9 +21,9 @@ const Bar = ({ height, width, index }) => {
       sortingProps
     inMergeRange = index > rightIndex && rightIndex
     leftIndex = index === leftIndex
-    midIndex = index === midIndex 
-    rightIndex = index === rightIndex 
-    compareIndex = index === compareIndex 
+    midIndex = index === midIndex
+    rightIndex = index === rightIndex
+    compareIndex = index === compareIndex
     //render logic
     return (
       <div
@@ -33,6 +33,25 @@ const Bar = ({ height, width, index }) => {
           inMergeRange || inMergeRange === 0 ? 'not-in-merge-range' : ''
         } 
           ${compareIndex || compareIndex === 0 ? 'comparing' : ''}`}
+        style={{ height: `${height}px`, width: `${width}px` }}
+      ></div>
+    )
+  } else if (selectedAlgorithm === 'heapSort') {
+    let {
+      heapSize,
+      parentIndex,
+      leftChildIndex,
+      rightChildIndex,
+    } = sortingProps
+    const isInHeapSizeRange = heapSize && index >= heapSize
+    const isParentIndex = parentIndex === index
+    const isLeftChildIndex = leftChildIndex === index 
+    const isRightChildIndex = rightChildIndex === index 
+    return (
+      <div
+        className={`bar${
+          isInHeapSizeRange ? ' not-in-merge-range' : ''
+        }${isParentIndex ? ' heap-sort-parent' : ""}${isLeftChildIndex ? " heap-sort-left": ""}${isRightChildIndex ? " heap-sort-right": ""}`}
         style={{ height: `${height}px`, width: `${width}px` }}
       ></div>
     )
