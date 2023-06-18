@@ -4,9 +4,12 @@ import { Context } from '../../Context/AppContext'
 const RandomizeButton = () => {
   const { handleRandomize } = useContext(Context)
   return (
-    <div className="randomize">
-      <div className="randomize-button button" onClick={handleRandomize}>
-        Randomize
+    <div
+      className="randomize-button-container control-button-container"
+      onClick={handleRandomize}
+    >
+      <div className="randomize-button control-button">
+        <span>Randomize</span>
       </div>
     </div>
   )

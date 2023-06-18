@@ -10,22 +10,30 @@ const SortingSpeedSelector = () => {
   }
 
   return (
-    <div className="sorting-speed">
-      <label htmlFor="sorting-speed">Sorting Speed</label>
-      <select
-        name="sorting-speed"
-        id="sorting-speed"
-        defaultValue={initialSortingSpeed}
-        onChange={(e) => handleChangeSpeed(e.target.value)}
-      >
-        {Object.keys(SortingSpeedOptions).map((item, index) => {
-          return (
-            <option value={SortingSpeedOptions[item].name} key={index}>
-              {SortingSpeedOptions[item].text}
-            </option>
-          )
-        })}
-      </select>
+    <div className="sorting-speed-selector-container w-full">
+      <div className="sorting-speed-selector w-4/6 flex flex-col">
+        <div className="label">
+          <span>Sorting Speed</span>
+        </div>
+        <select
+          name="sorting-speed"
+          className="control-input"
+          id="sorting-speed"
+          defaultValue={initialSortingSpeed}
+          onChange={(e) => handleChangeSpeed(e.target.value)}
+        >
+          <option value="" hidden aria-readonly>
+            Select a Speed
+          </option>
+          {Object.keys(SortingSpeedOptions).map((item, index) => {
+            return (
+              <option value={SortingSpeedOptions[item].name} key={index}>
+                {SortingSpeedOptions[item].text}
+              </option>
+            )
+          })}
+        </select>
+      </div>
     </div>
   )
 }

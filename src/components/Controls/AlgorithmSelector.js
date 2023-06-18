@@ -16,19 +16,23 @@ const AlgorithmSelector = () => {
   }
 
   return (
-    <div>
-      <div >
-        <label
-          htmlFor="algorithm"
-        >
+    <div className="algorithm-selector-container w-full">
+      <div className="algorithm-selector w-4/6 flex flex-col">
+        <div className="label">
           <span>Algorithm</span>
-        </label>
+        </div>
+
         <select
+          className="control-input"
           name="algorithm"
           id="algorithm"
+          placeholder="select an algorithm"
           onChange={(e) => handleChange(e.currentTarget.value)}
           defaultValue={initialAlgorithm}
         >
+          <option value="mergeSort" hidden aria-readonly>
+            Select an Algorithm
+          </option>
           {Object.keys(AlgorithmOptions).map((item, index) => {
             return (
               <option

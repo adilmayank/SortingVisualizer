@@ -26,7 +26,7 @@ const SortButton = () => {
     } else if (selectedAlgorithm === 'mergeSort') {
       result = MergeSortAlgorithm(inputArray)
       animateSort(result, 0)
-    } else if(selectedAlgorithm === "heapSort") {
+    } else if (selectedAlgorithm === 'heapSort') {
       result = HeapSort(inputArray)
       animateSort(result, 0)
     }
@@ -60,9 +60,27 @@ const SortButton = () => {
             rightIndex,
             compareIndex
           )
-        } else if(selectedAlgorithm === "heapSort") {
-          const {heapSize, parentIndex, childIndex1, childIndex2, largest, finalIndex1, finalIndex2, isSortingComplete} = result[index]
-          renderProps = Factory.createHeapSortProps(heapSize, parentIndex, childIndex1, childIndex2, largest, finalIndex1, finalIndex2, isSortingComplete)
+        } else if (selectedAlgorithm === 'heapSort') {
+          const {
+            heapSize,
+            parentIndex,
+            childIndex1,
+            childIndex2,
+            largest,
+            finalIndex1,
+            finalIndex2,
+            isSortingComplete,
+          } = result[index]
+          renderProps = Factory.createHeapSortProps(
+            heapSize,
+            parentIndex,
+            childIndex1,
+            childIndex2,
+            largest,
+            finalIndex1,
+            finalIndex2,
+            isSortingComplete
+          )
         }
         setSortingProps(renderProps)
         setInputArray([...interimArray])
@@ -75,9 +93,9 @@ const SortButton = () => {
   }
 
   return (
-    <div className="sort-button">
-      <div className="button" onClick={handleSort}>
-        Sort
+    <div className="sort-button-container control-button-container" onClick={handleSort}>
+      <div className="sort-button control-button">
+        <span>Sort</span>
       </div>
     </div>
   )

@@ -2,6 +2,8 @@ import { useEffect, useState, useContext, memo } from 'react'
 import { Context } from '../Context/AppContext'
 import ControlCenter from './ControlCenter'
 import Bar from './Bars'
+import Legends from './Legends'
+
 
 const SortingBox = () => {
   const {
@@ -78,17 +80,33 @@ const SortingBox = () => {
   }
 
   return (
-    <div className="sorting-box-container grid">
+    <div className="content-container my-3 p-3 flex flex-col h-full w-full items-center">
       <ControlCenter handleRandomize={handleRandomize} />
-      <div className="sorting-box frosted-texture">
-        <div className="bar-area controlled-width">
-          {barHeights.map((item, index) => {
-            return (
-              <Bar height={item} width={barWidth} key={index} index={index} />
-            )
-          })}
+      <div className="visuzalization-container grid grid-cols-12 my-14 w-5/6 h-full">
+        <div className="sorting-box-container col-span-8 flex flex-col frosted mr-3 h-full rounded-lg">
+        <Legends  />
+          <div className="bar-area-container overflow-auto h-5/6 w-full flex flex-col p-3">
+            <div className="bar-area">
+              {barHeights.map((item, index) => {
+                return (
+                  <Bar
+                    height={item}
+                    width={barWidth}
+                    key={index}
+                    index={index}
+                  />
+                )
+              })}
+            </div>
+            <div className="bars-base h-2 bg-white w-full rounded-sm"></div>
+          </div>
         </div>
-        <div className="base controlled-width"></div>
+        <div className="additional-visualization-container col-span-4 ml-3 frosted h-full rounded-lg">
+          <div className="additional-visualization flex flex-col justify-center items-center h-full w-full">
+            <p className='text-2xl font-bold uppercase my-1'>Additional Visualizations</p>
+            <p className='text-2xl uppercase my-1'>👀 Coming Soon 👀</p>
+          </div>
+        </div>
       </div>
     </div>
   )

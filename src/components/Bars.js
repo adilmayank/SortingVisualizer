@@ -10,9 +10,9 @@ const Bar = ({ height, width, index }) => {
     compareIndex = index === compareIndex
     return (
       <div
-        className={`bar ${initialIndex ? 'initial' : ''} ${
-          finalIndex ? 'final' : ''
-        } ${compareIndex ? 'comparing' : ''}`}
+        className={`bar ${initialIndex ? 'insertion-initial' : ''} ${
+          finalIndex ? 'insertion-final' : ''
+        } ${compareIndex ? 'insertion-comparing' : ''}`}
         style={{ height: `${height}px`, width: `${width}px` }}
       ></div>
     )
@@ -28,11 +28,11 @@ const Bar = ({ height, width, index }) => {
     return (
       <div
         className={`bar ${
-          leftIndex || leftIndex === 0 ? 'left-index-merge' : ''
-        } ${rightIndex || rightIndex === 0 ? 'right-index-merge' : ''} ${
-          inMergeRange || inMergeRange === 0 ? 'not-in-merge-range' : ''
+          leftIndex || leftIndex === 0 ? 'merge-left' : ''
+        } ${rightIndex || rightIndex === 0 ? 'merge-right' : ''} ${
+          inMergeRange || inMergeRange === 0 ? 'merge-out-of-bound' : ''
         } 
-          ${compareIndex || compareIndex === 0 ? 'comparing' : ''}`}
+          ${compareIndex || compareIndex === 0 ? 'merge-comparing' : ''}`}
         style={{ height: `${height}px`, width: `${width}px` }}
       ></div>
     )
@@ -50,8 +50,8 @@ const Bar = ({ height, width, index }) => {
     return (
       <div
         className={`bar${
-          isInHeapSizeRange ? ' not-in-merge-range' : ''
-        }${isParentIndex ? ' heap-sort-parent' : ""}${isLeftChildIndex ? " heap-sort-left": ""}${isRightChildIndex ? " heap-sort-right": ""}`}
+          isInHeapSizeRange ? ' heap-out-of-bound' : ''
+        }${isParentIndex ? ' heap-parent' : ""}${isLeftChildIndex ? " heap-left-child": ""}${isRightChildIndex ? " heap-right-child": ""}`}
         style={{ height: `${height}px`, width: `${width}px` }}
       ></div>
     )
