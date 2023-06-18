@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { memo, useContext } from 'react'
 import { Context } from '../../Context/AppContext'
 
 const RandomizeButton = () => {
@@ -11,4 +11,4 @@ const RandomizeButton = () => {
     </div>
   )
 }
-export default RandomizeButton
+export default memo(RandomizeButton)
