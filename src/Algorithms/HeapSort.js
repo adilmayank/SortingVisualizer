@@ -30,9 +30,6 @@ function HeapSort(array) {
     let largest
     let interimResult
 
-    // interimResult = getInterimResult(A, i, L, R)
-    // interimResultArray.push(interimResult)
-
     // if L child index of i is less than current heap's size and element on Lth index is greater than element at ith index
     // then set largest index to be equal to L
     if (L <= A.heapSize - 1 && A.array[L] > A.array[i]) {
@@ -63,7 +60,6 @@ function HeapSort(array) {
         largest === L ? i : L,
         largest === R ? i : R,
       )
-      // interimResult = getInterimResult(A, i, L, R, largest, i, largest)
       interimResultArray.push(interimResult)
       maxHeapify(A, largest)
     }
