@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, memo } from 'react'
 import { Context } from '../../Context/AppContext'
 
 const ArraySizeSelector = () => {
@@ -17,4 +17,4 @@ const ArraySizeSelector = () => {
     </div>
   )
 }
-export default ArraySizeSelector
+export default memo(ArraySizeSelector)
