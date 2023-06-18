@@ -25,4 +25,18 @@ export class Factory {
       inMergeRange: null,
     }
   }
+
+  static createHeapSortProps(
+    heapSize=null,
+    parentIndex = null,
+    leftChildIndex = null,
+    rightChildIndex = null,
+  ) {
+    return {
+      heapSize,
+      parentIndex,
+      leftChildIndex,
+      rightChildIndex,
+    }
+  }
 }
