@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, memo } from 'react'
 import { Context } from '../../Context/AppContext'
 import { SortingSpeedOptions } from '../../StaticLists/SortingSpeedOptionsArray'
 
@@ -29,4 +29,4 @@ const SortingSpeedSelector = () => {
     </div>
   )
 }
-export default SortingSpeedSelector
+export default memo(SortingSpeedSelector)
