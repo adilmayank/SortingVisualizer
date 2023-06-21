@@ -3,7 +3,8 @@ import { Context } from '../../Context/AppContext'
 import { SortingSpeedOptions } from '../../StaticLists/SortingSpeedOptionsArray'
 
 const SortingSpeedSelector = () => {
-  const { setSortingSpeed, initialSortingSpeed } = useContext(Context)
+  const { setSortingSpeed, initialSortingSpeed, isSortingHappening } =
+    useContext(Context)
 
   const handleChangeSpeed = (speed) => {
     setSortingSpeed(SortingSpeedOptions[speed].value)
@@ -21,6 +22,7 @@ const SortingSpeedSelector = () => {
           id="sorting-speed"
           defaultValue={initialSortingSpeed}
           onChange={(e) => handleChangeSpeed(e.target.value)}
+          disabled={isSortingHappening}
         >
           <option value="" hidden aria-readonly>
             Select a Speed

@@ -13,24 +13,27 @@ const SortButton = () => {
     setSortingProps,
     setInputArray,
     inputArray,
+    isSortingHappening,
+    setIsSortingHappening
   } = useContext(Context)
 
   const handleSort = () => {
-    let result
+    setIsSortingHappening(true)
+    if (!isSortingHappening) {
+      let result
+      setIsSortingComplete(false)
 
-    setIsSortingComplete(false)
-
-    if (selectedAlgorithm === 'insertionSort') {
-      result = InsertionSort(inputArray)
-      animateSort(result, 0)
-    } else if (selectedAlgorithm === 'mergeSort') {
-      result = MergeSortAlgorithm(inputArray)
-      animateSort(result, 0)
-    } else if (selectedAlgorithm === 'heapSort') {
-      result = HeapSort(inputArray)
-      animateSort(result, 0)
+      if (selectedAlgorithm === 'insertionSort') {
+        result = InsertionSort(inputArray)
+        animateSort(result, 0)
+      } else if (selectedAlgorithm === 'mergeSort') {
+        result = MergeSortAlgorithm(inputArray)
+        animateSort(result, 0)
+      } else if (selectedAlgorithm === 'heapSort') {
+        result = HeapSort(inputArray)
+        animateSort(result, 0)
+      }
     }
-    console.log(result.length)
   }
 
   const animateSort = (result, index) => {
@@ -89,11 +92,16 @@ const SortButton = () => {
     }
     if (index === result.length) {
       setIsSortingComplete(true)
+      setIsSortingHappening(false)
     }
   }
 
   return (
-    <div className="sort-button-container control-button-container" onClick={handleSort}>
+    <div
+      className="sort-button-container control-button-container"
+      onClick={handleSort}
+      aria-disabled={isSortingHappening}
+    >
       <div className="sort-button control-button">
         <span>Sort</span>
       </div>

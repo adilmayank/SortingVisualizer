@@ -30,13 +30,14 @@ export const ContextProvider = ({ children }) => {
   const [sortingSpeed, setSortingSpeed] = useState(initialSortingSpeedValue)
   const [isSortingComplete, setIsSortingComplete] = useState(false)
   const [sortingProps, setSortingProps] = useState({})
+  const [isSortingHappening, setIsSortingHappening] = useState(false)
 
   const resetBarStyles = () => {
     if (selectedAlgorithm === 'insertionSort') {
       setSortingProps(Factory.createInsertionSortProps())
     } else if (selectedAlgorithm === 'mergeSort') {
       setSortingProps(Factory.createMergeSortProps())
-    } else if (selectedAlgorithm === "heapSort") {
+    } else if (selectedAlgorithm === 'heapSort') {
       setSortingProps(Factory.createHeapSortProps())
     }
   }
@@ -78,6 +79,8 @@ export const ContextProvider = ({ children }) => {
     handleRandomize,
     initialSortingSpeed,
     initialAlgorithm,
+    isSortingHappening,
+    setIsSortingHappening,
   }
   return <Context.Provider value={contextValues}>{children}</Context.Provider>
 }

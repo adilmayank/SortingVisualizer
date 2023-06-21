@@ -8,6 +8,7 @@ const AlgorithmSelector = () => {
     resetBarStyles,
     selectedAlgorithm,
     setSelectedAlgorithm,
+    isSortingHappening
   } = useContext(Context)
 
   const handleChange = (algorithm) => {
@@ -29,6 +30,7 @@ const AlgorithmSelector = () => {
           placeholder="select an algorithm"
           onChange={(e) => handleChange(e.currentTarget.value)}
           defaultValue={initialAlgorithm}
+          disabled = {isSortingHappening}
         >
           <option value="mergeSort" hidden aria-readonly>
             Select an Algorithm

@@ -2,7 +2,7 @@ import { useContext, memo } from 'react'
 import { Context } from '../../Context/AppContext'
 
 const ArraySizeSelector = () => {
-  const { arraySize, setArraySize } = useContext(Context)
+  const { arraySize, setArraySize,isSortingHappening } = useContext(Context)
   return (
     <div className="array-length-selector-container w-full">
       <div className="array-length-selector w-4/6 flex flex-col">
@@ -17,6 +17,7 @@ const ArraySizeSelector = () => {
           max={200}
           defaultValue={arraySize}
           onChange={(e) => setArraySize(e.target.value)}
+          disabled={isSortingHappening}
         />
       </div>
     </div>
