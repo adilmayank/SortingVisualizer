@@ -11,9 +11,7 @@ function App() {
           <AppTitle />
           <div className="content-container my-3 p-3 flex flex-col h-full w-full items-center">
             <ControlCenter />
-            <div className="visuzalization-container grid grid-cols-12 my-14 w-5/6 h-full">
-              <VisualizationContainer />
-            </div>
+            <VisualizationContainer />
           </div>
         </div>
       </div>
