@@ -1,8 +1,13 @@
 import { memo, useContext } from 'react'
 import { Context } from '../Context/AppContext'
 
-const Legends = () => {
+const LegendsWrapper = () => {
   const { selectedAlgorithm } = useContext(Context)
+  return <Legends selectedAlgorithm={selectedAlgorithm} />
+}
+
+const Legends = memo(({ selectedAlgorithm }) => {
+  console.log('Legends')
   let legendNames = []
   if (selectedAlgorithm === 'insertionSort') {
     legendNames = [
@@ -30,7 +35,10 @@ const Legends = () => {
       <div className="legends-area grid items-center grid-flow-col w-full h-full bg-slate-600/50 rounded-lg text-white font-semibold text-xs">
         {legendNames.map((item, index) => {
           return (
-            <div className="legend-item flex justify-start items-center rounded-md bg-slate-800/80 h-5/6 m-1 px-3" key={index}>
+            <div
+              className="legend-item flex justify-start items-center rounded-md bg-slate-800/80 h-5/6 m-1 px-3"
+              key={index}
+            >
               <div className="px-1 flex-1">
                 <span>{item.name}</span>
               </div>
@@ -43,5 +51,5 @@ const Legends = () => {
       </div>
     </div>
   )
-}
-export default memo(Legends)
+})
+export default LegendsWrapper
