@@ -1,4 +1,4 @@
-import { memo, useContext, useEffect } from 'react'
+import { memo, useContext } from 'react'
 import { AlgorithmOptions } from '../../StaticLists/AlgorithmOptionsArray'
 import { Context } from '../../Context/AppContext'
 
