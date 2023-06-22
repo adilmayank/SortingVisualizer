@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, useContext, memo } from 'react'
+import { useEffect, useMemo, useContext } from 'react'
 import { Context } from '../../Context/AppContext'
 import Bar from '../Bars'
 import Legends from '../Legends'
@@ -16,13 +16,6 @@ const BarAreaWrapper = () => {
     arraySize,
   } = useContext(Context)
 
-  const [initialBarAreaWidth, setInitialBarAreaWidth] = useState(0)
-
-  useEffect(() => {
-    const barAreaContainer = document.querySelector('.bar-area');
-    setInitialBarAreaWidth(barAreaContainer?.clientWidth || 0);
-  }, []);
-
   return useMemo(
     () => (
       <BarsArea
@@ -35,8 +28,6 @@ const BarAreaWrapper = () => {
         setInputArray={setInputArray}
         getRandomArray={getRandomArray}
         arraySize={arraySize}
-        initialBarAreaWidth={initialBarAreaWidth}
-        setInitialBarAreaWidth={setInitialBarAreaWidth}
       />
     ),
     [
@@ -49,7 +40,6 @@ const BarAreaWrapper = () => {
       setInputArray,
       getRandomArray,
       arraySize,
-      initialBarAreaWidth,
     ]
   )
 }
@@ -64,13 +54,9 @@ const BarsArea = ({
   setInputArray,
   getRandomArray,
   arraySize,
-  initialBarAreaWidth,
-  setInitialBarAreaWidth,
 }) => {
-  console.log('Bars Area')
 
   const handleSortingCompletion = () => {
-    console.log('Handle sorting completion')
     const bars = document.querySelectorAll('.bar')
     if (isSortingComplete) {
       animateBars(bars, 0)
@@ -87,7 +73,6 @@ const BarsArea = ({
   }
 
   const animateBars = (barsArray, index) => {
-    console.log('Animate bars')
     if (index < barsArray.length) {
       const classesToRemove = Array.from(barsArray[index].classList).filter(
         (className) => className !== 'bar'
@@ -103,8 +88,6 @@ const BarsArea = ({
   }
 
   useEffect(() => {
-    const barAreaContainer = document.querySelector('.bar-area')
-    setInitialBarAreaWidth(barAreaContainer.clientWidth)
     setInputArray(getRandomArray())
   }, [])
 
@@ -124,7 +107,7 @@ const BarsArea = ({
       return (num / max) * barAreaHeight * 0.9
     })
 
-    const calculatedBarWidth = (initialBarAreaWidth / arraySize) * 0.8
+    const calculatedBarWidth = (barAreaContainer.clientWidth / arraySize) * 0.8
     setBarHeights(calculatedBarHeights)
     setBarWidth(calculatedBarWidth)
   }, [inputArray])
