@@ -7,7 +7,6 @@ const LegendsWrapper = () => {
 }
 
 const Legends = memo(({ selectedAlgorithm }) => {
-  console.log('Legends')
   let legendNames = []
   if (selectedAlgorithm === 'insertionSort') {
     legendNames = [
