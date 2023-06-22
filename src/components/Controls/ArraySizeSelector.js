@@ -3,6 +3,19 @@ import { Context } from '../../Context/AppContext'
 
 const ArraySizeSelector = () => {
   const { arraySize, setArraySize,isSortingHappening } = useContext(Context)
+  
+  const handleChange = (value) => {
+    const userInput = value
+    if(userInput < 10) {
+      setArraySize(10)
+    } else if(userInput > 250) {
+      setArraySize(250)
+    } 
+    else {
+      setArraySize(userInput)
+    }
+  }
+  
   return (
     <div className="array-length-selector-container w-full">
       <div className="array-length-selector w-4/6 flex flex-col">
@@ -14,8 +27,9 @@ const ArraySizeSelector = () => {
           className="control-input"
           type="number"
           min={10}
-          max={200}
-          defaultValue={arraySize}
+          max={25 0}
+          value={arraySize}
+          onBlur={(e) => handleChange(e.target.value)}
           onChange={(e) => setArraySize(e.target.value)}
           disabled={isSortingHappening}
         />
