@@ -5,7 +5,7 @@ const AdditionalVisualizationArea = () => {
   const { inputArray, selectedAlgorithm } = useContext(Context)
 
   if (selectedAlgorithm === 'heapSort') {
-    if (inputArray.length < 30) {
+    if (inputArray.length < 50) {
       return <HeapViz />
     }
     return (
